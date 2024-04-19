@@ -6,7 +6,12 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
+  <title>Fish Fosh</title>
+</head>
+
+<body>
 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="button"><strong>Click Here</strong></a><br>
 <a style="font-family: Raleway" href="https://www.youtube.com/@Dragoon45">Cool Guy YT Channel</a>
 
@@ -15,6 +20,7 @@
 
 <!-- Display the countdown timer in an element -->
 <p id="demo"></p>
+
 
 <script>
 // Set the date we're counting down to
@@ -45,9 +51,41 @@ var x = setInterval(function() {
     document.getElementById("demo").innerHTML = "House Exploded";
   }
 }, 1000);
-</script><br>
+</script>
 
-<img src="fish_fosh.gif" height=242 width=259>
+<img src="gifs/fish_fosh.gif" height="242" width="259" onclick="addToScore(1)">
+<p>Clicks on Fish: <span id="score">0</span></p>
+<button onclick="saveGame();">Save Clicks</button>
+
+<script>
+  var score = 0
+
+  function addToScore(amount) {
+    score = score + amount;
+    document.getElementById("score").innerHTML = score;
+  }
+  
+  function loadGame() {
+    var savedGame = JSON.parse(localStorage.getItem("gameSave"));
+    if (typeof savedGame.score !== "undefined") score = savedGame.score
+  }
+
+  window.onload = function() {
+    loadGame();
+  };
+
+  function saveGame() {
+    var gameSave = {
+      score: score
+    };
+    localStorage.setItem("gameSave", JSON.stringify(gameSave));
+  }
+  
+  setInterval(function() {
+    saveGame();
+  }, 60000);
+  
+  </script>
 
 </body>
 </html>
