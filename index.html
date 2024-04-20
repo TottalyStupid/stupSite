@@ -22,6 +22,7 @@
 <!-- Display the countdown timer in an element -->
 <p id="demo"></p>
 
+<audio id="bonkSound" src="snd/bonk.mp3"></audio>
 
 <script>
 // Set the date we're counting down to
@@ -54,11 +55,19 @@ var x = setInterval(function() {
 }, 1000);
 </script>
 
-<img src="gifs/fish_fosh.gif" height="242" width="259" onclick="addToScore(1)">
+<div style="display: flex;">
+  <img src="gifs/fish_fosh.gif" height="242" width="259" onclick="addToScore(1)">
+  <div style="padding: 10px;">
+    <button id="superButton" style="display: none;" onclick="addToScore(15); hideButton();">Bonk!</button>  
+  </div>
+</div>
+
 <p>Clicks on Fish: <span id="score">0</span></p>
-<button onclick="saveGame();">Save Clicks</button>
+<button id="saveButton" onclick="saveChangeText()">Save Clicks</button>
 
 <script>
+  const superButton = document.querySelector('#superButton');
+  const bSound = document.querySelector('#bonkSound');
   var score = 0
 
   function addToScore(amount) {
@@ -73,11 +82,12 @@ var x = setInterval(function() {
 
   window.onload = function() {
     loadGame();
+    document.getElementById("score").innerHTML = score;
   };
 
   function saveGame() {
     var gameSave = {
-      score: score
+      score: score,
     };
     localStorage.setItem("gameSave", JSON.stringify(gameSave));
   }
@@ -85,8 +95,50 @@ var x = setInterval(function() {
   setInterval(function() {
     saveGame();
   }, 60000);
-  
-  </script>
+
+
+// Function to show the button
+function showButton() {
+  superButton.style.display = 'block';
+}
+
+// Function to hide the button
+function hideButton() {
+  superButton.style.display = 'none';
+}
+
+superButton.addEventListener('click', () => {
+  // Play the sound
+  bSound.play();
+});
+
+// Function to toggle button visibility
+function toggleButton() {
+  if (superButton.style.display === 'none') {
+    showButton();
+  } else {
+    hideButton();
+  }
+}
+
+// Start the interval
+setInterval(function() {
+  toggleButton();
+  setTimeout(hideButton, 1000); // Hide button after 1 seconds
+}, Math.floor(Math.random() * 8000) + 13000); // Generate random interval between 13 and 20 seconds
+
+function saveChangeText() {
+  var button = document.getElementById("saveButton");
+
+  saveGame()
+  button.innerText = "Clicks Saved";
+
+  setTimeout(function() {
+    button.innerText = "Save Clicks";
+  }, 1500);
+}
+
+</script>
 
 </body>
 </html>
