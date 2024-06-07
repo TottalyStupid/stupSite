@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+* {
+    outline: 0;
+  }
+
+  html {
+    font-size: 16px; /* reset rem size */
+  }
+
+  body {
+    background-image: url('Article-background.png');
+    color: white;
+    line-height: 0.75;
+  }
+
+  html, body {
+    font-family: 'Rajdhani',sans-serif;
+  }
