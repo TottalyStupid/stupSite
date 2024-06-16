@@ -21,3 +21,12 @@
   a {
     color: #Fdd600;
   }
+
+#content {
+  position:relative;
+}
+  
+.azazel {
+  position: absolute;
+  right: 0;
+}
